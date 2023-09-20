@@ -1,38 +1,62 @@
-const token = 'BQAILpJYFalwlwPKzudmgZxRoFWDlCYCwjH1FG0Zf576BcoXyyROnUs7hJ6GDAkPCwmWNj9dPZbdGiI4nPodMvTl_MNmyVEybknRh9xq1k4nrlG8TO8srkkU6SzKJTv6ivfohrnaO8jgfsh7dRQv8MXOsHfKcpYUnMnERuA3_ZegEcKdnwjAl50UlND0quQaXYwk1WGznaevYsaj-7HDT39ublw3Rl4VcakUspBZv1s2dKWgq9D1QOkN-WxMH0R3EaiGAZtsLfmPG1Jvu2UJV1K9';
- const url = "https://api.spotify.com/v1/artists?ids=2GoeZ0qOTt6kjsWW4eA6LS%2c7hHDO4bJGlEaEHlY2lj1eZ%2c4YRxDV8wJFPHPTeXepOstw%2c7uIbLdzzSEqnX0Pkrb56cR%2c7n2wHs1TKAczGzO7Dd2rGr%2c0C8ZW7ezQVs4URX5aX7Kqx%2c0oOet2f43PA68X5RxKobEy%2c2o4R2rK7FetH40HTv0SUWl%2c00sCATpEvwH48ays7PlQFU%2c4zCH9qm4R2DADamUHMCa6O"
+const token = 'BQAJV_ZJ0XXTe-USb-TNyRlRsL1bO8f4XdEekbUu_usuVUKVcsjoHs8S4x56EsEQ39USXGMNZOw7P636mL617nohzDOFZd9k5hwFGVzyI7Hwee86JpT82nn8i-h5G_tQ7zqCsdGvN7yXeRRO0Tm8-Gs34seLuqlc8t0eYA7dMzyfLGRnRn5NXzCMU99N-hU2NCqKJXuSTS9yp_KNQW2tUGzXt1h1wabOUaDbClEdqZ-FkDkzS4arFHpUHmwKa0NApvn09AWbR5EK8nqtx2oUTVpj';
+const artistIds = [
+  '2GoeZ0qOTt6kjsWW4eA6LS',
+  '7hHDO4bJGlEaEHlY2lj1eZ',
+  '4YRxDV8wJFPHPTeXepOstw',
+  '7uIbLdzzSEqnX0Pkrb56cR',
+  '7n2wHs1TKAczGzO7Dd2rGr',
+  '0C8ZW7ezQVs4URX5aX7Kqx',
+  '0oOet2f43PA68X5RxKobEy',
+  '2o4R2rK7FetH40HTv0SUWl',
+  '00sCATpEvwH48ays7PlQFU',
+  '4zCH9qm4R2DADamUHMCa6O'
+];
 
-const request = new Request(
-    url,{
-        headers:{
-            'Authorization': `Bearer ${token}`
-        },
-})
-async function getData() {
-    try {
-        const response = await fetch(request);
-        const data = await response.json();
-        console.log(data);
-        
-        
-        const dataContainer = document.getElementById("data-container");
+const dataContainer = document.getElementById("data-container");
 
-        
-        const artistList = document.createElement("ul");
+async function fetchArtistData(artistId) {
+  const artistUrl = `https://api.spotify.com/v1/artists/${artistId}`;
+  const headers = {
+    'Authorization': `Bearer ${token}`
+  };
 
-        
-        data.artists.forEach(artist => {
-            const listItem = document.createElement("li");
-            listItem.textContent = `Artist Name: ${artist.name} , 
-             Follower:${artist.followers.total} , 
-              Music Kind : ${artist.genres} ,
-            Popularity: ${artist.popularity}`;
-            artistList.appendChild(listItem);
-        });
-
-        
-        dataContainer.appendChild(artistList);
-    } catch (error) {
-        console.error("Error fetching data:", error);
-    }
+  try {
+    const response = await fetch(artistUrl, { headers });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching artist data:", error);
+    return null;
+  }
 }
-getData()
+
+async function getData() {
+  try {
+    const artistDataPromises = artistIds.map(fetchArtistData);
+    const artistDataArray = await Promise.all(artistDataPromises);
+
+    const artistList = document.createElement("ul");
+
+    artistDataArray.forEach(artist => {
+      if (artist) {
+        const table=document.getElementById("artist-table")
+        const listItem = document.createElement("tr");
+        listItem.innerHTML = `
+       <td> <img src="${artist.images[0].url}" alt="${artist.name}'s Image"></td>
+         <td> <h3>Artist Name: ${artist.name}</h3></td>
+          <td><p>Follower: ${artist.followers.total}</p></td>
+          <td><p>Music Kind: ${artist.genres.join(', ')}</p></td>
+         <td> <p>Popularity: ${artist.popularity}</p></td>
+          
+        `;
+        table.appendChild(listItem);
+      }
+    });
+
+    dataContainer.appendChild(artistList);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+getData();

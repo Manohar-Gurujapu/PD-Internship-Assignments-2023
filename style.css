@@ -1,14 +1,67 @@
 #data-container {
     margin: 30px;
     background-color: rgb(157, 157, 216);
-    /* height: 100vh; */
-    /* align-items: left; */
-    float: left;
-    padding: 10px;
-    width: 400px;
-    border: 2px solid darkblue;
+    border: 10px solid darkblue;
     border-radius: 15px;
-     display: flex;
-    /* justify-content: center;
-          align-items: center; */
-  }
+    width: 95%;
+        display: flex;
+    /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); Adjust the column width as needed */
+    gap: 10px; /* Adjust the gap between grid items */
+    padding: 10px;
+}
+
+.grid-item {
+    border: 2px solid darkblue;
+    border-radius: 10px;
+    overflow: hidden; /* Ensure that images fit within the borders */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.grid-item img {
+    max-width: 100%; /* Ensure images fit within the grid item */
+    height: auto;
+}
+img{
+    border: 2px solid black;
+    margin: auto;
+    height: 150px;
+    width: 250px;
+}
+
+/* Add some basic styling to the table */
+#artist-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  #artist-table th,
+  #artist-table td {
+    border: 3px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  #artist-table th {
+    background-color: #f2f2f2;
+  }
+  
+  #artist-table img {
+    max-width: 100px;
+    max-height: 100px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  /* Center-align the table */
+  #data-container {
+    text-align: center;
+  }
+  
+  /* Add some spacing between table rows */
+  #artist-table tbody tr {
+    margin-bottom: 10px;
+  }

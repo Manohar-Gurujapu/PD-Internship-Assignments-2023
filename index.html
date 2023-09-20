@@ -1,14 +1,26 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="style.css">
-    <title>Top 10 Favorite Artists</title>
+    <title>Spotify Artist Data</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>My Top 10 Favorite Artists</h1>
-    <div id="data-container"></div>
-    <div class="artist-list" id="artist-list"></div>
+    <div id="data-container">
+    <table id="artist-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Artist Name</th>
+            <th>Followers</th>
+            <th>Music Kind</th>
+            <th>Popularity</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+</div>
     <script src="script.js"></script>
 </body>
 </html>
