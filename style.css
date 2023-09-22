@@ -1,67 +1,59 @@
-#data-container {
-    margin: 30px;
-    background-color: rgb(157, 157, 216);
-    border: 10px solid darkblue;
-    border-radius: 15px;
-    width: 95%;
-        display: flex;
-    /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); Adjust the column width as needed */
-    gap: 10px; /* Adjust the gap between grid items */
-    padding: 10px;
+/* CSS for circular artist cards with smaller images and proper content fit */
+.artist {
+  width: 200px;
+  height: 300px;
+  margin: 20px;
+  border: 1px solid gainsboro;
+  text-align: center;
+  background-color: cyan;
+  border-radius: 10%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;   /* Stack content vertically within the circle */
+  align-items: center;      /* Center content horizontally within the circle */
+  padding: 10px;
 }
 
-.grid-item {
-    border: 2px solid darkblue;
-    border-radius: 10px;
-    overflow: hidden; /* Ensure that images fit within the borders */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+/* Adjust the image within the circular card */
+.artist img {
+  width: 100px;
+  height: 80px;
+  border-radius: 50%;    /* Maintain circular shape for the image */
 }
 
-.grid-item img {
-    max-width: 100%; /* Ensure images fit within the grid item */
-    height: auto;
-}
-img{
-    border: 2px solid black;
-    margin: auto;
-    height: 150px;
-    width: 250px;
+/* Style the artist name */
+.artist h2 {
+  color: rgb(82, 14, 239);
+  margin: 5px 0;         /* Add some spacing above and below the artist name */
 }
 
-/* Add some basic styling to the table */
-#artist-table {
+/* Style the artist genres */
+.artist p {
+  color: black;
+  margin: 0; /* Remove margin for the artist genres */
+}
+
+/* Rest of your existing CSS remains unchanged */
+
+h1 {
+  display: flex;
+  justify-content: center;
+  color: rebeccapurple;
+}
+
+#assignment {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+body{
+  background-color: antiquewhite;
+}
+
+@media (max-width: 768px) {  /*this make the webpage responsive*/
+  .artist {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+    height: auto;
   }
-  
-  #artist-table th,
-  #artist-table td {
-    border: 3px solid #ccc;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  #artist-table th {
-    background-color: #f2f2f2;
-  }
-  
-  #artist-table img {
-    max-width: 100px;
-    max-height: 100px;
-    display: block;
-    margin: 0 auto;
-  }
-  
-  /* Center-align the table */
-  #data-container {
-    text-align: center;
-  }
-  
-  /* Add some spacing between table rows */
-  #artist-table tbody tr {
-    margin-bottom: 10px;
-  }
+}
